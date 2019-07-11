@@ -59,12 +59,12 @@ fn main() {
         }
     };
 
-    let mut particles: Vec<Particle> = Vec::with_capacity(HEIGHT);
-    particles.resize(HEIGHT, Particle{ x:0.0, y: 0.0, color: 0xffffff, speed: 0.0});
+    let mut particles: Vec<Particle> = vec![Particle{ x:0.0, y: 0.0, color: 0xffffff, speed: 0.0}; HEIGHT];
     let mut rng = thread_rng();
     let mut y = 0.0;
+
     for p in particles.iter_mut() {
-        p.x = rng.gen_range(0.0, 1.0 * (WIDTH - 1)as f32);
+        p.x = rng.gen_range(0.0, 1.0 * (WIDTH - 1) as f32);
         p.y = y;
         let speed = rng.gen_range(0.1, 1.0);
         let channel: u32 = (speed * 255.0) as u32;
@@ -74,9 +74,7 @@ fn main() {
         y += 1.0;
     }
 
-    let mut buffer: Vec<u32> = Vec::with_capacity(WIDTH * HEIGHT);
-    buffer.resize(WIDTH * HEIGHT, 0);
-
+    let mut buffer: Vec<u32> = vec![0; WIDTH*HEIGHT];
     let mut sw = Stopwatch::new();
 
     sw.start();
