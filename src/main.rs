@@ -32,15 +32,15 @@ fn render_clear_buffer(render_buffer: &mut Vec<u32>, color: u32) {
     }
 }
 
-fn render_draw_particles(render_buffer: &mut Vec<u32>, particles: &mut Vec<Particle>) {
+fn render_draw_particles(render_buffer: &mut Vec<u32>, particles: &Vec<Particle>) {
     let w = WIDTH as f32;
-    for p in particles.iter_mut() {
+    for p in particles.iter() {
         let i = (p.x + p.y * w) as usize;
         render_buffer[i] = p.color;
     }
 }
 
-fn render_draw(render_buffer: &mut Vec<u32>, particles: &mut Vec<Particle>) {
+fn render_draw(render_buffer: &mut Vec<u32>, particles: &Vec<Particle>) {
     render_clear_buffer(render_buffer, 0);
     render_draw_particles(render_buffer, particles);
 }
@@ -91,7 +91,7 @@ fn main() {
             accumulator -= 16;
             update(&mut particles);
         }
-        render_draw(&mut buffer, &mut particles);
+        render_draw(&mut buffer, &particles);
 
         window.update_with_buffer(&buffer).unwrap();
     }
