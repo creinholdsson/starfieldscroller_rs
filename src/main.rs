@@ -32,7 +32,7 @@ fn render_clear_buffer(render_buffer: &mut Vec<u32>, color: u32) {
     }
 }
 
-fn render_draw_particles(render_buffer: &mut Vec<u32>, particles: &Vec<Particle>) {
+fn render_draw_particles(render_buffer: &mut Vec<u32>, particles: &[Particle]) {
     let w = WIDTH as f32;
     for p in particles.iter() {
         let i = (p.x + p.y * w) as usize;
@@ -40,7 +40,7 @@ fn render_draw_particles(render_buffer: &mut Vec<u32>, particles: &Vec<Particle>
     }
 }
 
-fn render_draw(render_buffer: &mut Vec<u32>, particles: &Vec<Particle>) {
+fn render_draw(render_buffer: &mut Vec<u32>, particles: &[Particle]) {
     render_clear_buffer(render_buffer, 0);
     render_draw_particles(render_buffer, particles);
 }
@@ -59,7 +59,7 @@ fn main() {
         }
     };
 
-    let mut particles: Vec<Particle> = vec![Particle{ x:0.0, y: 0.0, color: 0xffffff, speed: 0.0}; HEIGHT];
+    let mut particles: Vec<Particle> = vec![Particle{ x:0.0, y: 0.0, color: 0x00ff_ffff, speed: 0.0}; HEIGHT];
     let mut rng = thread_rng();
     let mut y = 0.0;
 
