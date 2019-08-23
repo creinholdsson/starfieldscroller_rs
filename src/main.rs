@@ -1,8 +1,8 @@
 extern crate minifb;
-use minifb::{Window, Key, Scale, WindowOptions};
+use minifb::{Key, Scale, Window, WindowOptions};
 
 extern crate stopwatch;
-use stopwatch::{Stopwatch};
+use stopwatch::Stopwatch;
 
 use rand::prelude::*;
 
@@ -14,7 +14,7 @@ struct Particle {
     x: f32,
     y: f32,
     color: u32,
-    speed:f32,
+    speed: f32,
 }
 
 fn update(particles: &mut Vec<Particle>) {
@@ -46,12 +46,16 @@ fn render_draw(render_buffer: &mut Vec<u32>, particles: &[Particle]) {
 }
 
 fn main() {
-    let mut window = match Window::new("Starfield - Press ESC to exit", WIDTH, HEIGHT,
-                                       WindowOptions {
-                                           resize: false,
-                                           scale: Scale::X2,
-                                           ..WindowOptions::default()
-                                       }) {
+    let mut window = match Window::new(
+        "Starfield - Press ESC to exit",
+        WIDTH,
+        HEIGHT,
+        WindowOptions {
+            resize: false,
+            scale: Scale::X2,
+            ..WindowOptions::default()
+        },
+    ) {
         Ok(win) => win,
         Err(err) => {
             println!("Unable to create window {}", err);
@@ -59,7 +63,15 @@ fn main() {
         }
     };
 
-    let mut particles: Vec<Particle> = vec![Particle{ x:0.0, y: 0.0, color: 0x00ff_ffff, speed: 0.0}; HEIGHT];
+    let mut particles: Vec<Particle> = vec![
+        Particle {
+            x: 0.0,
+            y: 0.0,
+            color: 0x00ff_ffff,
+            speed: 0.0
+        };
+        HEIGHT
+    ];
     let mut rng = thread_rng();
     let mut y = 0.0;
 
@@ -74,11 +86,11 @@ fn main() {
         y += 1.0;
     }
 
-    let mut buffer: Vec<u32> = vec![0; WIDTH*HEIGHT];
+    let mut buffer: Vec<u32> = vec![0; WIDTH * HEIGHT];
     let mut sw = Stopwatch::new();
 
     sw.start();
-    let mut accumulator:i64 = 0;
+    let mut accumulator: i64 = 0;
     while window.is_open() && !window.is_key_down(Key::Escape) {
         sw.stop();
 
